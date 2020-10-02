@@ -1,0 +1,143 @@
+/* [wxMaxima: input   start ] */
+/*  Aluno:  Thiago de Oliveira Silva
+    DRE:    111466197   */
+load("draw");
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+retangulo(M,u):=
+block (
+    [lx,ly,quad,v,maxh,minh,maxv,minv],
+    quad: matrix([0, 0, 1, 1], [0, 1, 1, 0]),
+    v: matrix([u[1],u[1],u[1],u[1]], [u[2],u[2],u[2],u[2]]),
+    quad:M.quad+v,
+    lx:quad[1],
+    ly:quad[2],
+    maxh:max(lx[1],lx[2],lx[3],lx[4]),
+    minh:min(lx[1],lx[2],lx[3],lx[4]),
+    maxv:max(ly[1],ly[2],ly[3],ly[4]),
+    minv:min(ly[1],ly[2],ly[3],ly[4]),
+    retangulo:polygon(lx,ly),
+    return([retangulo,[minh,maxh],[minv,maxv]])
+)$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+letra(lm,lu):=
+block(
+    [minh,maxh,minv,maxv,k],
+    lret:[],
+    minh:inf,
+    maxh:minf,
+    minv:inf,
+    maxv:minf,
+    for k:1 thru length(lm) do(
+        ret:retangulo(lm[k],lu[k]),
+        minh:min(minh,ret[2][1]),
+        maxh:max(maxh,ret[2][2]),
+        minv:min(minv,ret[3][1]),
+        maxv:max(maxv,ret[3][2]),
+        lret:cons(ret[1],lret)
+    ),
+    draw2d(
+    xrange=[minh-1,maxh+1],
+    yrange=[minv-1,maxv+1],
+    lret)
+    )$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/*Os valores foram escolhidos de modo 
+a geral melhor visualização das letras
+aqui considerando que os eixos 
+caresianos da plotagem do máxima, não 
+aparecem na mesma escala quando gerados*/
+
+/*Letra I em itálico*/
+A:matrix([0.3, 0.5], [0, 1]); /*Matriz de cisalhamento horizontal*/
+a:[0,0];
+letra([A],[a]);
+for j:1 thru 1500 do (factorial(j));
+
+/*Letra L*/
+A:matrix([0.5, 0], [0, 7]);/*Matriz de redimensionamento*/
+B:matrix([1.3, 0], [0, 1.5]);/*Matriz de redimensionamento*/
+a:[0,0];
+b:[0,0];
+letra([A,B],[a,b]);
+for j:1 thru 1500 do (factorial(j));
+
+/*Letra F*/
+A:matrix([0.5, 0], [0, 7]);/*Matriz de redimensionamento*/
+B:matrix([1, 0], [0, 1.5]);/*Matriz de redimensionamento*/
+C:matrix([1.3, 0], [0, 1.5]);/*Matriz de redimensionamento*/
+a:[0,0];
+b:[0,3];/*Valores usado para transladar o quadrilátero*/
+c:[0,5.5];/*Valores usado para transladar o quadrilátero*/
+letra([A,B,C],[a,b,c]);
+for j:1 thru 1500 do (factorial(j));
+
+/*Letra H*/
+A:matrix([0.5, 0], [0, 7]);/*Matriz de redimensionamento*/
+B:matrix([1.5, 0], [0, 1.3]);/*Matriz de redimensionamento*/
+C:matrix([0.5, 0], [0, 7]);/*Matriz de redimensionamento*/
+a:[0,0];
+b:[0,3];
+c:[1.5,0];
+letra([A,B,C],[a,b,c]);
+for j:1 thru 1500 do (factorial(j));
+
+/*Letra V*/
+A:matrix([1, 2], [0, 1]);/*Matriz de cisalhamento horizontal*/
+R:matrix([-1, 0], [0, 1]);/*Matriz de Reflexão em relação ao eixo Y*/
+B:R.A;  /*B = a Reflexão de A*/
+a:[0,2];
+b:[1,2];
+letra([A,B],[a,b]);
+for j:1 thru 1500 do (factorial(j));
+
+/*Letra Y em itálico*/
+R:matrix([-1, 0], [0, 1]);/*Matriz de Reflexão em relação ao eixo Y*/
+S:matrix([1, 0], [0, -1]);/*Matriz de Reflexão em relação ao eixo X*/
+A:matrix([1, 2], [0, 1]);/*Matriz de Cisalhamento*/
+B:R.A;/*B = a Reflexão de A com relação ao eixo Y */
+C:S.B;/*C = a Reflexão de B com relação ao eixo X */
+Z:matrix([1, 1.5], [0, 1]);/*Nova Matriz de Cisalhamento*/
+A:Z.A;  /*Cisalhamento aplicado em A*/
+B:Z.B;  /*Cisalhamento aplicado em B*/
+C:Z.C;  /*Cisalhamento aplicado em C*/
+a:[0,0];
+b:[1,0];
+c:[1,0];
+letra([A,B,C],[a,b,c]);
+
+/*Letra W*/
+A:matrix([1, 2], [0, 1]);/*Matriz de cisalhamento horizontal*/
+R:matrix([-1, 0], [0, 1]);/*Matriz de Reflexão em relação ao eixo Y*/
+B:R.A;  /*B = a Reflexão de A*/
+C:A; /*C = A*/
+D:B; /*D = B*/
+a:[0,2];
+b:[1,2]; 
+c:[4,2];
+d:[5,2];
+letra([A,B,C,D],[a,b,c,d]);
+for j:1 thru 1500 do (factorial(j));
+
+/*Letra S*/
+A:matrix([1, 0], [3, 1]); /*Matriz de cisalhamento vertical*/
+R:matrix([1, 0], [0, -1]);/*Matriz reflexão em relação ao eixo X*/
+B:R.A; /*B = a Reflexão de A*/
+C:A;    /*C = A*/
+a:[0,0];
+b:[0,1];
+c:[0,-6];
+letra([A,B,C],[a,b,c]);
+for j:1 thru 1500 do (factorial(j));
+/* [wxMaxima: input   end   ] */
+
+
+
